@@ -61,4 +61,11 @@ public class InMemoryDatabase implements Database
         return users_.get(id);
     }
 
+	@Override
+	public void deleteUser(int id) {
+		users_.remove(id);
+	}
+    
+    
+
 }

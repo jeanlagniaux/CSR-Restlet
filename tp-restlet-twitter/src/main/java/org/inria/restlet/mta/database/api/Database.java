@@ -41,5 +41,7 @@ public interface Database
      *  @return the user
      */
     User getUser(int id);
+    
+    void deleteUser(int id);
 
 }

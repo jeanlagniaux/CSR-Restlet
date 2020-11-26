@@ -84,4 +84,24 @@ public class UsersResource extends ServerResource
         return result;
     }
 
+    @Post("json")
+    public Representation deleteUser(JsonRepresentation representation)
+        throws Exception
+    {
+        JSONObject object = representation.getJsonObject();
+        String name = object.getString("name");
+        int age = object.getInt("age");
+
+        // Save the user
+        User user = backend_.getDatabase().createUser(name, age);
+
+        // generate result
+        JSONObject resultObject = new JSONObject();
+        resultObject.put("name", user.getName());
+        resultObject.put("age", user.getAge());
+        resultObject.put("id", user.getId());
+        JsonRepresentation result = new JsonRepresentation(resultObject);
+        return result;
+    }
+    
 }
