@@ -43,5 +43,7 @@ public interface Database
     User getUser(int id);
     
     void deleteUser(int id);
+   
+    boolean exists(int id);
 
 }

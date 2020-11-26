@@ -65,6 +65,11 @@ public class InMemoryDatabase implements Database
 	public void deleteUser(int id) {
 		users_.remove(id);
 	}
+
+	@Override
+	public boolean exists(int id) {
+		return users_.containsKey(id);
+	}
     
 
 }
