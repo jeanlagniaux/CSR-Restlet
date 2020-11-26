@@ -10,6 +10,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.restlet.ext.json.JsonRepresentation;
 import org.restlet.representation.Representation;
+import org.restlet.resource.Delete;
 import org.restlet.resource.Get;
 import org.restlet.resource.Post;
 import org.restlet.resource.ServerResource;
@@ -21,88 +22,78 @@ import org.restlet.resource.ServerResource;
  * @author msimonin
  *
  */
-public class UsersResource extends ServerResource
-{
+public class UsersResource extends ServerResource {
 
-    /** Backend. */
-    private Backend backend_;
+	/** Backend. */
+	private Backend backend_;
 
-    /**
-     * Constructor.
-     * Call for every single user request.
-     */
-    public UsersResource()
-    {
-        super();
-        backend_ = (Backend) getApplication().getContext().getAttributes()
-            .get("backend");
-    }
+	/**
+	 * Constructor. Call for every single user request.
+	 */
+	public UsersResource() {
+		super();
+		backend_ = (Backend) getApplication().getContext().getAttributes().get("backend");
+	}
 
-    /**
-     *
-     * Returns the list of all the users
-     *
-     * @return  JSON representation of the users
-     * @throws JSONException
-     */
-    @Get("json")
-    public Representation getUsers() throws JSONException
-    {
-        Collection<User> users = backend_.getDatabase().getUsers();
-        Collection<JSONObject> jsonUsers = new ArrayList<JSONObject>();
+	/**
+	 *
+	 * Returns the list of all the users
+	 *
+	 * @return JSON representation of the users
+	 * @throws JSONException
+	 */
+	@Get("json")
+	public Representation getUsers() throws JSONException {
+		Collection<User> users = backend_.getDatabase().getUsers();
+		Collection<JSONObject> jsonUsers = new ArrayList<JSONObject>();
 
-        for (User user : users)
-        {
-            JSONObject current = new JSONObject();
-            current.put("id", user.getId());
-            current.put("name", user.getName());
-            current.put("url", getReference() + "/" + user.getId());
-            jsonUsers.add(current);
+		for (User user : users) {
+			JSONObject current = new JSONObject();
+			current.put("id", user.getId());
+			current.put("name", user.getName());
+			current.put("url", getReference() + "/" + user.getId());
+			jsonUsers.add(current);
 
-        }
-        JSONArray jsonArray = new JSONArray(jsonUsers);
-        return new JsonRepresentation(jsonArray);
-    }
+		}
+		JSONArray jsonArray = new JSONArray(jsonUsers);
+		return new JsonRepresentation(jsonArray);
+	}
 
-    @Post("json")
-    public Representation createUser(JsonRepresentation representation)
-        throws Exception
-    {
-        JSONObject object = representation.getJsonObject();
-        String name = object.getString("name");
-        int age = object.getInt("age");
+	@Post("json")
+	public Representation createUser(JsonRepresentation representation) throws Exception {
+		JSONObject object = representation.getJsonObject();
+		String name = object.getString("name");
+		int age = object.getInt("age");
 
-        // Save the user
-        User user = backend_.getDatabase().createUser(name, age);
+		// Save the user
+		User user = backend_.getDatabase().createUser(name, age);
 
-        // generate result
-        JSONObject resultObject = new JSONObject();
-        resultObject.put("name", user.getName());
-        resultObject.put("age", user.getAge());
-        resultObject.put("id", user.getId());
-        JsonRepresentation result = new JsonRepresentation(resultObject);
-        return result;
-    }
-    
-    @Post("json")
-    public Representation deleteUser(JsonRepresentation representation)
-        throws Exception
-    {
-    	String userIdString = (String) getRequest().getAttributes().get("userId");
-        JSONObject object = representation.getJsonObject();
-        int id = object.getInt(userIdString);
-        
-     // Save the user
-        User user = backend_.getDatabase().getUser(id);
-        
-     // generate result
-        JSONObject resultObject = new JSONObject();
-        resultObject.put("vous allez supprrimer", user.getName());
-        JsonRepresentation result = new JsonRepresentation(resultObject);
+		// generate result
+		JSONObject resultObject = new JSONObject();
+		resultObject.put("name", user.getName());
+		resultObject.put("age", user.getAge());
+		resultObject.put("id", user.getId());
+		JsonRepresentation result = new JsonRepresentation(resultObject);
+		return result;
+	}
 
-        backend_.getDatabase().deleteUser(id);
-        
-        return result;
-    }
+	@Delete("json")
+	public Representation deleteUser(JsonRepresentation representation) throws Exception {
+		String userIdString = (String) getRequest().getAttributes().get("userId");
+		JSONObject object = representation.getJsonObject();
+		int id = object.getInt(userIdString);
+
+		// Save the user
+		User user = backend_.getDatabase().getUser(id);
+
+		// generate result
+		JSONObject resultObject = new JSONObject();
+		resultObject.put("vous allez supprrimer", user.getName());
+		JsonRepresentation result = new JsonRepresentation(resultObject);
+
+		backend_.getDatabase().deleteUser(id);
+
+		return result;
+	}
 
 }
