@@ -66,6 +66,5 @@ public class InMemoryDatabase implements Database
 		users_.remove(id);
 	}
     
-    
 
 }
