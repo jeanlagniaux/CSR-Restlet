@@ -17,22 +17,20 @@ public class TweetRessource extends ServerResource {
 	private User user_;
 
 	/**
-     * Constructor.
-     * Call for every single user request.
-     */
-    public TweetRessource()
-    {
-        backend_ = (Backend) getApplication().getContext().getAttributes()
-                .get("backend");
-    }
+	 * Constructor. Call for every single user request.
+	 */
+	public TweetRessource() {
+		backend_ = (Backend) getApplication().getContext().getAttributes().get("backend");
+	}
 
 	@Post("json")
 	public Representation postTweet(JsonRepresentation representation) throws Exception {
+		JSONObject object = representation.getJsonObject();
 		String userIdString = (String) getRequest().getAttributes().get("userId");
-		String tweet = (String) getRequest().getAttributes().get("tweets");
 		int userId = Integer.valueOf(userIdString);
 		if (backend_.getDatabase().exists(userId)) {
-			backend_.getDatabase().addTweet(userId,tweet);
+			String tweet = object.getString("tweet");
+			backend_.getDatabase().addTweet(userId, tweet);
 			JSONObject response = new JSONObject();
 			response.put("result", "DONE");
 			return new JsonRepresentation(response);
