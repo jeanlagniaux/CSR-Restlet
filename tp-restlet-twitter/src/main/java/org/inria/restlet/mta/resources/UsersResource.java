@@ -1,6 +1,6 @@
 package org.inria.restlet.mta.resources;
 
-import java.lang.System.Logger;
+
 import java.util.ArrayList;
 import java.util.Collection;
 
