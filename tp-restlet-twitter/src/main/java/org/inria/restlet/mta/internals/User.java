@@ -67,10 +67,11 @@ public class User
     }
     
     public String getTweets(){
+    	String listTweet = "";
     	for(String tweet : myTweets){
-    		return tweet;
+    		listTweet += tweet + " | ";
     	}
-		return "Fin des tweets";
+		return listTweet;
     }
 
 }
