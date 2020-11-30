@@ -32,7 +32,7 @@ public class TweetRessource extends ServerResource {
 		String tweet = (String) getRequest().getAttributes().get("tweets");
 		int userId = Integer.valueOf(userIdString);
 		if (backend_.getDatabase().exists(userId)) {
-			backend_.getDatabase().addTweet(tweet);
+			backend_.getDatabase().addTweet(userId,tweet);
 			JSONObject response = new JSONObject();
 			response.put("result", "DONE");
 			return new JsonRepresentation(response);

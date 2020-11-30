@@ -72,9 +72,8 @@ public class InMemoryDatabase implements Database
 	}
 
 	@Override
-	public void addTweet(String tweet) {
-		// TODO Auto-generated method stub
-		
+	public void addTweet(int id, String tweet) {
+		users_.get(id).setTweet(tweet);
 	}
     
 

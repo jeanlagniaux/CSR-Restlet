@@ -44,7 +44,7 @@ public interface Database
     
     void deleteUser(int id);
     
-    void addTweet(String tweet);
+    void addTweet(int id, String tweet);
    
     boolean exists(int id);
 
