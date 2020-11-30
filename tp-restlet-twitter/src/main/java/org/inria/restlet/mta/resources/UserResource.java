@@ -73,23 +73,5 @@ public class UserResource extends ServerResource
 			return new JsonRepresentation(response);
 		}
 	}
-    
-    @Post("json")
- 	public Representation postTweet(JsonRepresentation representation) throws Exception {
-    	String userIdString = (String) getRequest().getAttributes().get("userId");
-		int userId = Integer.valueOf(userIdString);
-		if (backend_.getDatabase().exists(userId)) {
-			backend_.getDatabase().deleteUser(userId);
-			JSONObject response = new JSONObject();
-			response.put("result", "DONE");
-			return new JsonRepresentation(response);
-		}
-		else {
-			JSONObject response = new JSONObject();
-			response.put("result", "DOES NOT EXIST");
-			return new JsonRepresentation(response);
-		}
-    }
-    
 
 }
