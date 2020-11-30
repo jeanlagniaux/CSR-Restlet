@@ -70,6 +70,12 @@ public class InMemoryDatabase implements Database
 	public boolean exists(int id) {
 		return users_.containsKey(id);
 	}
+
+	@Override
+	public void addTweet(String tweet) {
+		// TODO Auto-generated method stub
+		
+	}
     
 
 }
