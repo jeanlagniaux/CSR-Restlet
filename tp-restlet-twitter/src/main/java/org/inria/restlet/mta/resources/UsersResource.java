@@ -1,5 +1,6 @@
 package org.inria.restlet.mta.resources;
 
+import java.lang.System.Logger;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -75,23 +76,6 @@ public class UsersResource extends ServerResource {
 		resultObject.put("id", user.getId());
 		JsonRepresentation result = new JsonRepresentation(resultObject);
 		return result;
-	}
-
-	@Delete("json")
-	public Representation deleteUser(JsonRepresentation representation) throws Exception {
-		String userIdString = (String) getRequest().getAttributes().get("userId");
-		int userId = Integer.valueOf(userIdString);
-		if (backend_.getDatabase().exists(userId)) {
-			backend_.getDatabase().deleteUser(userId);
-			JSONObject response = new JSONObject();
-			response.put("result", "DONE");
-			return new JsonRepresentation(response);
-		}
-		else {
-			JSONObject response = new JSONObject();
-			response.put("result", "DOES NOT EXIST");
-			return new JsonRepresentation(response);
-		}
 	}
 
 }
