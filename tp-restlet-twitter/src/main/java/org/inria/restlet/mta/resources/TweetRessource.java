@@ -5,6 +5,7 @@ import org.inria.restlet.mta.internals.User;
 import org.json.JSONObject;
 import org.restlet.ext.json.JsonRepresentation;
 import org.restlet.representation.Representation;
+import org.restlet.resource.Get;
 import org.restlet.resource.Post;
 import org.restlet.resource.ServerResource;
 
@@ -39,6 +40,21 @@ public class TweetRessource extends ServerResource {
 			response.put("result", "DOES NOT EXIST");
 			return new JsonRepresentation(response);
 		}
+	}
+	
+	@Get("json")
+	public Representation getTweet(JsonRepresentation representation) throws Exception {
+		String userIdString = (String) getRequest().getAttributes().get("userId");
+		int userId = Integer.valueOf(userIdString);
+		user_ = backend_.getDatabase().getUser(userId);
+
+		JSONObject userObject = new JSONObject();
+		userObject.put("name", user_.getName());
+		userObject.put("age", user_.getAge());
+		userObject.put("id", user_.getId());
+		userObject.put("tweets", user_.getTweets());
+
+		return new JsonRepresentation(userObject);
 	}
 
 }
