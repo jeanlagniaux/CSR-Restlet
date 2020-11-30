@@ -62,11 +62,15 @@ public class User
         id_ = id;
     }
     
+    public void setTweet(String tweet){
+    	myTweets.add(tweet);
+    }
+    
     public String getTweets(){
     	for(String tweet : myTweets){
     		return tweet;
     	}
-		return "yes";
+		return "Fin des tweets";
     }
 
 }
