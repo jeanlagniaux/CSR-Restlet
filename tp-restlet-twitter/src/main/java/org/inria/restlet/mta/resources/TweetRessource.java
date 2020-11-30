@@ -34,7 +34,7 @@ public class TweetRessource extends ServerResource {
 			backend_.getDatabase().addTweet(userId, tweet);
 			JSONObject response = new JSONObject();
 			response.put("result", "DONE");
-			response.put("tweet", user_.getTweets());
+			//response.put("tweet", user_.getTweets());
 			return new JsonRepresentation(response);
 		} else {
 			JSONObject response = new JSONObject();

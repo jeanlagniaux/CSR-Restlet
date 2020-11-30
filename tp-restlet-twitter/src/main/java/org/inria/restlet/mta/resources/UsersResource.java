@@ -77,5 +77,23 @@ public class UsersResource extends ServerResource {
 		JsonRepresentation result = new JsonRepresentation(resultObject);
 		return result;
 	}
+	
+	@Get("json")
+	public Representation getAllTweets() throws JSONException {
+		Collection<User> users = backend_.getDatabase().getUsers();
+		Collection<JSONObject> jsonUsers = new ArrayList<JSONObject>();
+		for (User user : users) {
+			JSONObject current = new JSONObject();
+			current.put("id", user.getId());
+			current.put("name", user.getName());
+			current.put("tweet", user.getTweets());
+			jsonUsers.add(current);
+
+		}
+		JSONArray jsonArray = new JSONArray(jsonUsers);
+		return new JsonRepresentation(jsonArray);
+	}
+	
+
 
 }
