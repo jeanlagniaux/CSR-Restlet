@@ -22,7 +22,7 @@ public class User
     /** Age of the user.*/
     private int age_;
     
-    private ArrayList myTweets = new ArrayList<String>();
+    private ArrayList<String> myTweets = new ArrayList<String>();
 
     /** To be added: collection of tweets of the user. */
 
@@ -66,6 +66,7 @@ public class User
     	for(String tweet : myTweets){
     		return tweet;
     	}
+		return "yes";
     }
 
 }
