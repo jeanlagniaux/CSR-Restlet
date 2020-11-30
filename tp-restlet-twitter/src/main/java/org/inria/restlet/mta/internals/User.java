@@ -22,7 +22,7 @@ public class User
     /** Age of the user.*/
     private int age_;
     
-    private ArrayList<String> myTweets = new ArrayList<String>();
+    private ArrayList<String> myTweets ;
 
     /** To be added: collection of tweets of the user. */
 
@@ -30,6 +30,7 @@ public class User
     {
         name_ = name;
         age_ = age;
+        this.myTweets = new ArrayList<String>();
     }
 
     public String getName()
