@@ -43,6 +43,7 @@ public class UsersResource extends ServerResource {
 	 * @return JSON representation of the users
 	 * @throws JSONException
 	 */
+	
 	@Get("json")
 	public Representation getUsers() throws JSONException {
 		Collection<User> users = backend_.getDatabase().getUsers();
